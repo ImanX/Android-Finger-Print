@@ -1,4 +1,4 @@
-# FingerPringProvider
+# FingerPrintProvider
 Android Easy Finger Print Provider Authentication
 
 - Need Library:
