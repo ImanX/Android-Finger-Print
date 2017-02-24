@@ -1,0 +1,82 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+
+
+    task generateSourcesJar(type: Jar) {
+        from android.sourceSets.main.java.srcDirs
+        classifier 'sources'
+    }
+
+    task generateJavadocs(type: Javadoc) {
+        source = android.sourceSets.main.java.srcDirs
+        classpath += project.files(android.getBootClasspath()
+                .join(File.pathSeparator))
+    }
+
+    task generateJavadocsJar(type: Jar) {
+        from generateJavadocs.destinationDir
+        classifier 'javadoc'
+    }
+
+
+
+    artifacts {
+        archives generateJavadocsJar
+        archives generateSourcesJar
+    }
+
+    version = "0.0.5"
+    group = "com.github.imanx"
+
+    bintray {
+        user = 'imanx'
+        key = '9798a6fc07dde20ed654f98b91cf428cf5b0be6f'
+        pkg {
+            repo = 'FingerPrintProvider'
+            userOrg = 'imansoft'
+            name = 'Finger_Print'
+
+            version {
+                name = '0.0.5'
+                desc = 'Android Easy Finger Print'
+                released = new Date()
+                vcsTag = '0.0.5'
+            }
+
+            licenses = ['Apache-2.0']
+            vcsUrl = ''
+            websiteUrl = ''
+        }
+        configurations = ['archives']
+    }
+
+
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:25.0.1'
+    testCompile 'junit:junit:4.12'
+}
