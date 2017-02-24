@@ -1,36 +1,32 @@
-# FingerPrintProvider
-Android Easy Finger Print Provider Authentication
+# FingerPrint
+Android Easy Finger Print
 
 - Need Library:
 ```Gradle
-    compile 'com.github.imanx:fingerprintprovider:0.0.2'
+    compile 'com.github.imanx:fingerprintprovider:0.0.5'
  ```
 
 ###Example :
  ```Java
- FingerPrintProvider fingerPrintProvider = new FingerPrintProvider(getApplicationContext());
 
-
-        if (!fingerPrintProvider.isSupportDevice()) {
-            //NOTE: Device not Supported FingerPrint.
+        FingerPrint fingerPrint = new FingerPrint(this);
+        if (!fingerPrint.isSupportedDevice()) {
             return;
         }
 
-        if (!fingerPrintProvider.hasRegisterFingerPrint()) {
-            //NOTE: Device supported FingerPrint but user not registered yourself FingerPrint.
+        if (!fingerPrint.hasEnrolledFinger()) {
             return;
         }
 
-
-        fingerPrintProvider.startAuthenticate(new OnCallbackFingerPrintListener() {
+        fingerPrint.start(new OnCallbackAuthenticationListener() {
             @Override
-            public void onAuthenticateSuccess() {
-                Log.i("TAG Finger Print", "Success Authentication");
+            public void onSuccess() {
+                Log.i(TAG, "Authentication Success");
             }
 
             @Override
-            public void onAuthenticateFailure(int errCode) {
-                Log.i("TAG Finger Print", "Failure Authentication");
+            public void onFailed() {
+                Log.i(TAG, "Authentication Failed");
             }
         });
  ```
