@@ -23,6 +23,7 @@ import javax.crypto.SecretKey;
  * Created by ImanX on 9/25/16.
  * Copyright Alireza Tarazani All Rights Reserved.
  */
+@TargetApi(Build.VERSION_CODES.M)
 public class FingerPrint extends FingerprintManager.AuthenticationCallback {
 
     private static final String ANDROID_KEY_STORE = "AndroidKeyStore";
@@ -36,8 +37,6 @@ public class FingerPrint extends FingerprintManager.AuthenticationCallback {
     private Cipher                           cipher;
     private OnCallbackAuthenticationListener listener;
 
-
-    @TargetApi(Build.VERSION_CODES.M)
     public FingerPrint(Context context) {
         this.context = context;
         this.applicationPackageName = context.getPackageName();
